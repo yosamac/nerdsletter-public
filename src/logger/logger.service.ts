@@ -31,8 +31,6 @@ export class ServiceLogger extends Logger implements LoggerService {
         }
     }
 
-    verbose() {}
-
     logs(...messages: any[]) {
         this.log(this.parseMessage(messages));
     }
@@ -60,10 +58,11 @@ export class ServiceLogger extends Logger implements LoggerService {
     }
 
     private parseMessage(messages: any[]) {
-        return messages.map(msg => typeof msg !== 'string'
+        return messages.map(msg => {
+            return typeof msg !== 'string'
                 ? JSON.stringify(msg, null, JSON_INDENT)
                 : msg
-        ).join('\n');
+        }).join('\n');
     }
 
 }

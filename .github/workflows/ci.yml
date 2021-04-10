@@ -22,13 +22,13 @@ jobs:
         npm install
         npm run build --if-present
     - name: Testing
-      run: npm test
-    - name: Generate release
-      run: |
-        git config --global user.email ci@nerdsletter.com
-        git config --global user.name CI
-        npm run release
-        git push --follow-tags origin main
+      run: npm run test:cov
+    # - name: Generate release
+    #   run: |
+    #     git config --global user.email ci@nerdsletter.com
+    #     git config --global user.name CI
+    #     npm run release
+    #     git push --follow-tags origin main
     - name: Build and push docker
       uses: docker/build-push-action@v1
       with:
