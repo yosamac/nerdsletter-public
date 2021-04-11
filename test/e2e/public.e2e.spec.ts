@@ -72,5 +72,11 @@ describe('PublicController (e2e)', () => {
                 .post('/subscriptions').send(validSubscription)
                 .expect(HttpStatus.CONFLICT);
         });
+
+        it('/ (GET) 200', () => {
+            return request(app.getHttpServer())
+                .get('/subscriptions')
+                .expect(HttpStatus.OK);
+        });
     });
 });

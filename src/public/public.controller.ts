@@ -1,6 +1,6 @@
 import {
     Controller, UseFilters,
-    Post, Body, HttpStatus,
+    Post, Get, Body, HttpStatus,
     HttpCode
 } from '@nestjs/common';
 import { ApiResponse, ApiTags, } from '@nestjs/swagger';
@@ -16,6 +16,7 @@ import {
     ServiceHttpResponse,
     HttpExceptionFilter,
 } from '../common/exception.filter';
+import { isArray } from 'util';
 
 @Controller('subscriptions')
 @ApiTags('Subscription')
@@ -49,6 +50,22 @@ export class PublicController {
         @Body(CreateSubscriptionPipe) newSubscription: CreateSubscriptionDTO
     ): Observable<SubscriptionDTO> {
         return this.publicService.createSubscription(newSubscription);
+    }
+
+    @Get()
+    @HttpCode(HttpStatus.OK)
+    @ApiResponse({
+        status: HttpStatus.OK,
+        description: 'The subscriptions was successfully returned',
+        type: [SubscriptionDTO]
+    })
+    @ApiResponse({
+        status: HttpStatus.INTERNAL_SERVER_ERROR,
+        description: 'Internal error',
+        type: ServiceHttpResponse
+    })
+    getAllSubscriptions(): Observable<SubscriptionDTO[]> {
+        return this.publicService.getAllSubscriptions();
     }
 
 }

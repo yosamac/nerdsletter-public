@@ -76,4 +76,17 @@ describe('PublicService', () => {
             });
         });
     });
+
+    describe('#getAllSubscriptions', () => {
+
+        it('Should return all subscriptions', (done) => {
+
+            const res = publicService.getAllSubscriptions();
+
+            res.subscribe(subscription => {
+                expect(subscription).toBeInstanceOf(Array);
+                done();
+            });
+        });
+    });
 });

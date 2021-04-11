@@ -24,3 +24,7 @@ export function toSubscriptionDTO(other: any): SubscriptionDTO {
 
     return dto;
 }
+
+export function toSubscriptionsListDTO(other: any): SubscriptionDTO[] {
+    return other.map(toSubscriptionDTO);
+}

@@ -7,7 +7,7 @@ import { SubscriptionDTO } from './dto/subscription.dto';
 import { ServiceLogger } from '../logger/logger.service';
 import { SubscriptionMeshService } from '../mesh/subscription';
 import { handleError } from '../common/helper';
-import { toSubscriptionDTO } from './public.mapper';
+import { toSubscriptionDTO, toSubscriptionsListDTO } from './public.mapper';
 
 @Injectable()
 export class PublicService {
@@ -30,5 +30,15 @@ export class PublicService {
             map(toSubscriptionDTO),
             catchError(handleError(this.logger))
         );
+    }
+
+    getAllSubscriptions(): Observable<SubscriptionDTO[]> {
+        this.logger.info('Providing all subscriptions');
+
+        return this.subscriptionService.getAllSubscriptions()
+            .pipe(
+                map(toSubscriptionsListDTO),
+                catchError(handleError(this.logger))
+            );
     }
 }

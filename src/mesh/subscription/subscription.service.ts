@@ -17,4 +17,11 @@ export class SubscriptionMeshService {
             { ...data }
         );
     }
+
+    getAllSubscriptions(): Observable<any[]> {
+        return this.subscriptionClient.send<any>(
+            { cmd: 'getAllSubscriptions' },
+            { }
+        );
+    }
 }
