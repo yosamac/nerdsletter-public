@@ -34,6 +34,7 @@ async function bootstrap() {
     const document = SwaggerModule.createDocument(app, options);
     SwaggerModule.setup(`${context ? context + '/' : ''}api`, app, document);
 
+    await app.startAllMicroservicesAsync();
     await app.listen(config.get<number>('api.port'));
     logger.info(`Server listening on port: ${config.get<number>('api.port')}`);
 }
