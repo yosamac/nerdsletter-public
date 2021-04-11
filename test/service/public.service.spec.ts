@@ -10,7 +10,8 @@ import { toSubscriptionDTO } from '../../src/public/public.mapper';
 import {
     SubscriptionServiceMock,
     emailRegistered,
-    validNewsletterId
+    validNewsletterId,
+    validSubscriptionId
 } from '../mock/mesh.mock';
 import {
     SubscriptionMeshService
@@ -85,6 +86,34 @@ describe('PublicService', () => {
 
             res.subscribe(subscription => {
                 expect(subscription).toBeInstanceOf(Array);
+                done();
+            });
+        });
+    });
+
+    describe('#getSubscription', () => {
+
+        it('Should return a subscription', (done) => {
+
+            const res = publicService.getSubscription(validSubscriptionId);
+
+            res.subscribe(subscription => {
+                expect(subscription.id).toEqual(validSubscriptionId);
+                done();
+            });
+        });
+
+        it('Should throw a service exception 404', (done) => {
+
+            const invalidId = 'invalidId';
+
+            const res = publicService.getSubscription(invalidId);
+
+            res.pipe(
+                catchError(err => of(err))
+            ).subscribe(ex => {
+                expect(ex).toBeInstanceOf(ServiceException);
+                expect(ex.getStatus()).toBe(HttpStatus.NOT_FOUND);
                 done();
             });
         });

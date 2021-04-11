@@ -7,7 +7,8 @@ import { SubscriptionMeshService } from '../../src/mesh/subscription';
 import {
     SubscriptionServiceMock,
     emailRegistered,
-    validNewsletterId
+    validNewsletterId,
+    validSubscriptionId
 } from '../mock/mesh.mock';
 
 describe('PublicController (e2e)', () => {
@@ -77,6 +78,18 @@ describe('PublicController (e2e)', () => {
             return request(app.getHttpServer())
                 .get('/subscriptions')
                 .expect(HttpStatus.OK);
+        });
+
+        it('/:id (GET) 200', () => {
+            return request(app.getHttpServer())
+                .get(`/subscriptions/${validSubscriptionId}`)
+                .expect(HttpStatus.OK);
+        });
+
+        it('/ (GET) 404', () => {
+            return request(app.getHttpServer())
+                .get('/subscriptions/invalid-Id')
+                .expect(HttpStatus.NOT_FOUND);
         });
     });
 });

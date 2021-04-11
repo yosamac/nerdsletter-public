@@ -12,6 +12,7 @@ import { GENDER } from './dto/request/create.subscription.dto';
 export function toSubscriptionDTO(other: any): SubscriptionDTO {
 
     const dto: SubscriptionDTO = {
+        id: other.id,
         email: other.email,
         dateOfBirth: other.dateOfBirth,
         flagForConsent: other.flagForConsent,

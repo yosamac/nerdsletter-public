@@ -1,13 +1,15 @@
 import {
     Controller, UseFilters,
     Post, Get, Body, HttpStatus,
-    HttpCode
+    HttpCode,
+    Param
 } from '@nestjs/common';
-import { ApiResponse, ApiTags, } from '@nestjs/swagger';
+import { ApiParam, ApiResponse, ApiTags, } from '@nestjs/swagger';
 import { Observable } from 'rxjs';
 
 import { PublicService } from './public.service';
 import { SubscriptionDTO, } from './dto/subscription.dto';
+import { SubscriptionIdPipe, SubscriptionIdDTO } from './dto/request/subscription.id.dto';
 import {
     CreateSubscriptionDTO,
     CreateSubscriptionPipe,
@@ -16,7 +18,6 @@ import {
     ServiceHttpResponse,
     HttpExceptionFilter,
 } from '../common/exception.filter';
-import { isArray } from 'util';
 
 @Controller('subscriptions')
 @ApiTags('Subscription')
@@ -53,10 +54,9 @@ export class PublicController {
     }
 
     @Get()
-    @HttpCode(HttpStatus.OK)
     @ApiResponse({
         status: HttpStatus.OK,
-        description: 'The subscriptions was successfully returned',
+        description: 'The subscriptions were successfully returned',
         type: [SubscriptionDTO]
     })
     @ApiResponse({
@@ -66,6 +66,29 @@ export class PublicController {
     })
     getAllSubscriptions(): Observable<SubscriptionDTO[]> {
         return this.publicService.getAllSubscriptions();
+    }
+
+    @Get('/:id')
+    @ApiParam({ name: 'id' })
+    @ApiResponse({
+        status: HttpStatus.OK,
+        description: 'The subscription was successfully returned',
+        type: SubscriptionDTO
+    })
+    @ApiResponse({
+        status: HttpStatus.NOT_FOUND,
+        description: 'The subscription wasn\'t found',
+        type: ServiceHttpResponse,
+    })
+    @ApiResponse({
+        status: HttpStatus.INTERNAL_SERVER_ERROR,
+        description: 'Internal error',
+        type: ServiceHttpResponse
+    })
+    getSubscription(
+        @Param(SubscriptionIdPipe) param: SubscriptionIdDTO
+    ): Observable<SubscriptionDTO> {
+        return this.publicService.getSubscription(param.id);
     }
 
 }

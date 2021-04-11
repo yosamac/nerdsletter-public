@@ -41,4 +41,14 @@ export class PublicService {
                 catchError(handleError(this.logger))
             );
     }
+
+    getSubscription(id: string): Observable<SubscriptionDTO> {
+        this.logger.info(`Providing subscription: ${id}`);
+
+        return this.subscriptionService.getSubscription(id)
+            .pipe(
+                map(toSubscriptionDTO),
+                catchError(handleError(this.logger))
+            );
+    }
 }
