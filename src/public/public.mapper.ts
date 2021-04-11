@@ -1,14 +1,16 @@
-import { GENDER } from './dto/request/create.subscription.dto';
 import { SubscriptionDTO } from './dto/subscription.dto';
+import { GENDER } from './dto/request/create.subscription.dto';
+
 
 /**
- * @description Transform subscription service response at SubscriptionDto format
+ * @description Transform subscription service response at SubscriptionDTO format
  * @param other
  * @typeParam any
  * @returns SubscriptionDTO
  * @category Mapper
  */
 export function toSubscriptionDTO(other: any): SubscriptionDTO {
+
     const dto: SubscriptionDTO = {
         email: other.email,
         dateOfBirth: other.dateOfBirth,

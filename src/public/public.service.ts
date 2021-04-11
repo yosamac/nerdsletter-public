@@ -22,12 +22,13 @@ export class PublicService {
     createSubscription(
         newSubscription: CreateSubscriptionDTO
     ): Observable<SubscriptionDTO> {
-        this.logger.debug(`Creating new subscription for ${newSubscription.email}`);
+        this.logger.info(`Providing new subscription for ${newSubscription.email}`);
 
-        return this.subscriptionService.createSubscription(newSubscription)
-            .pipe(
-                map(toSubscriptionDTO),
-                catchError(handleError(this.logger))
-            );
+        return this.subscriptionService.createSubscription(
+            newSubscription
+        ).pipe(
+            map(toSubscriptionDTO),
+            catchError(handleError(this.logger))
+        );
     }
 }
