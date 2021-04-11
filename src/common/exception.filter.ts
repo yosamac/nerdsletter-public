@@ -3,6 +3,7 @@ import { HttpStatus, ExceptionFilter, Catch,
 } from '@nestjs/common';
 import { ApiProperty } from '@nestjs/swagger';
 import { Request, Response } from 'express';
+import { ServiceException } from './service.exception';
 
 export class ServiceHttpResponse {
     @ApiProperty()
@@ -15,8 +16,8 @@ export class ServiceHttpResponse {
     readonly timestamp: string;
 }
 
-@Catch(HttpException)
-export class HttpExceptionFilter implements ExceptionFilter<HttpException> {
+@Catch(ServiceException)
+export class HttpExceptionFilter implements ExceptionFilter {
     catch(exception: HttpException, host: ArgumentsHost) {
         const ctx = host.switchToHttp();
         const response = ctx.getResponse<Response>();
