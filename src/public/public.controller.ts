@@ -2,7 +2,8 @@ import {
     Controller, UseFilters,
     Post, Get, Body, HttpStatus,
     HttpCode,
-    Param
+    Param,
+    Delete
 } from '@nestjs/common';
 import { ApiParam, ApiResponse, ApiTags, } from '@nestjs/swagger';
 import { Observable } from 'rxjs';
@@ -89,6 +90,30 @@ export class PublicController {
         @Param(SubscriptionIdPipe) param: SubscriptionIdDTO
     ): Observable<SubscriptionDTO> {
         return this.publicService.getSubscription(param.id);
+    }
+
+    @Delete('/:id')
+    @ApiParam({ name: 'id' })
+    @HttpCode(HttpStatus.NO_CONTENT)
+    @ApiResponse({
+        status: HttpStatus.OK,
+        description: 'The subscription was successfully deleted',
+        type: SubscriptionDTO
+    })
+    @ApiResponse({
+        status: HttpStatus.NOT_FOUND,
+        description: 'The subscription wasn\'t found',
+        type: ServiceHttpResponse,
+    })
+    @ApiResponse({
+        status: HttpStatus.INTERNAL_SERVER_ERROR,
+        description: 'Internal error',
+        type: ServiceHttpResponse
+    })
+    cancelSubscription(
+        @Param(SubscriptionIdPipe) param: SubscriptionIdDTO
+    ): Observable<SubscriptionDTO> {
+        return this.publicService.cancelSubscription(param.id);
     }
 
 }

@@ -31,4 +31,11 @@ export class SubscriptionMeshService {
             { id }
         );
     }
+
+    cancelSubscription(id: string): Observable<any> {
+        return this.subscriptionClient.send<any>(
+            { cmd: 'cancelSubscription' },
+            { id }
+        );
+    }
 }

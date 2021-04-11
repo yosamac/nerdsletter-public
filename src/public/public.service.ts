@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
 import { CreateSubscriptionDTO } from './dto/request/create.subscription.dto';
@@ -48,6 +48,16 @@ export class PublicService {
         return this.subscriptionService.getSubscription(id)
             .pipe(
                 map(toSubscriptionDTO),
+                catchError(handleError(this.logger))
+            );
+    }
+
+    cancelSubscription(id: string): Observable<SubscriptionDTO> {
+        this.logger.info(`Providing subscription cancellation for: ${id}`);
+
+        return this.subscriptionService.cancelSubscription(id)
+            .pipe(
+                map(_ => undefined),
                 catchError(handleError(this.logger))
             );
     }

@@ -118,4 +118,32 @@ describe('PublicService', () => {
             });
         });
     });
+
+    describe('#cancelSubscription', () => {
+
+        it('Should delete a subscription', (done) => {
+
+            const res = publicService.cancelSubscription(validSubscriptionId);
+
+            res.subscribe(response => {
+                expect(response).toBeUndefined();
+                done();
+            });
+        });
+
+        it('Should throw a service exception 404', (done) => {
+
+            const invalidId = 'invalidId';
+
+            const res = publicService.cancelSubscription(invalidId);
+
+            res.pipe(
+                catchError(err => of(err))
+            ).subscribe(ex => {
+                expect(ex).toBeInstanceOf(ServiceException);
+                expect(ex.getStatus()).toBe(HttpStatus.NOT_FOUND);
+                done();
+            });
+        });
+    });
 });

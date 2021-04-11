@@ -34,4 +34,10 @@ export class SubscriptionServiceMock {
             ? of(validSubscription)
             : throwError({ code: 5, details: 'Subscription not found' });
     }
+
+    cancelSubscription(id: string) {
+        return id == validSubscriptionId
+            ? of(validSubscriptionId)
+            : throwError({ code: 5, details: 'Subscription not found' });
+    }
 }

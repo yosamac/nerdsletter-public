@@ -86,9 +86,21 @@ describe('PublicController (e2e)', () => {
                 .expect(HttpStatus.OK);
         });
 
-        it('/ (GET) 404', () => {
+        it('/:id (GET) 404', () => {
             return request(app.getHttpServer())
                 .get('/subscriptions/invalid-Id')
+                .expect(HttpStatus.NOT_FOUND);
+        });
+
+        it('/:id (DELETE) 204', () => {
+            return request(app.getHttpServer())
+                .delete(`/subscriptions/${validSubscriptionId}`)
+                .expect(HttpStatus.NO_CONTENT);
+        });
+
+        it('/:id (DELETE) 404', () => {
+            return request(app.getHttpServer())
+                .delete('/subscriptions/invalid-Id')
                 .expect(HttpStatus.NOT_FOUND);
         });
     });
