@@ -5,13 +5,14 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Attach",
-      "port": 9229,
+      "name": "Attach by Process ID",
+      "processId": "${command:PickProcess}",
       "request": "attach",
       "skipFiles": [
         "<node_internals>/**"
       ],
-      "type": "pwa-node"
+      "type": "pwa-node",
+      "sourceMaps": true
     },
     {
       "type": "node",

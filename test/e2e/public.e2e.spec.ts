@@ -3,7 +3,6 @@ import { HttpStatus, INestApplication } from '@nestjs/common';
 import request from 'supertest';
 
 import { MainModule } from '../../src/main.module';
-import { GENDER } from '../../src/public/dto/request/create.subscription.dto'
 import { SubscriptionMeshService } from '../../src/mesh/subscription';
 import {
     SubscriptionServiceMock,
@@ -39,7 +38,7 @@ describe('PublicController (e2e)', () => {
                 flagForConsent: true,
                 newsletterId: 'campaign-1',
                 firstName: 'Yosnier',
-                gender: GENDER.MALE
+                gender: 'MALE'
             };
             return request(app.getHttpServer())
                 .post('/subscriptions').send(validSubscription)
@@ -53,7 +52,7 @@ describe('PublicController (e2e)', () => {
                 flagForConsent: true,
                 newsletterId: 'campaign-1',
                 firstName: 'Yosnier',
-                gender: GENDER.MALE
+                gender: 'MALE'
             };
             return request(app.getHttpServer())
                 .post('/subscriptions').send(validSubscription)
@@ -67,7 +66,7 @@ describe('PublicController (e2e)', () => {
                 flagForConsent: true,
                 newsletterId: validNewsletterId,
                 firstName: 'Yosnier',
-                gender: GENDER.MALE
+                gender: 'MALE'
             };
             return request(app.getHttpServer())
                 .post('/subscriptions').send(validSubscription)
