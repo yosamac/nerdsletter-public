@@ -48,7 +48,7 @@ The API can be used with the path:
 | LOGGING_LEVEL           | Logs level                                 | `INFO`                       |
 | **Mesh section of other services**                                                                |||
 | SUBSCRIPTION_MESH_HOST  | SUBSCRIPTION TCP host                      | `0.0.0.0`                    |
-| SUBSCRIPTION_MESH_PORT  | SUBSCRIPTION TCP port                      | `4000`                       |
+| SUBSCRIPTION_MESH_PORT  | SUBSCRIPTION TCP port                      | `4001`                       |
 
 
 ## Running the tests

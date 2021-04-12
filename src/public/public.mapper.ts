@@ -20,7 +20,7 @@ export function toSubscriptionDTO(other: any): SubscriptionDTO {
         firstName: other.firstName,
         gender: GENDER[other.gender],
         createdAt: other.createdAt,
-        modifiedAt: other.modifiedAt
+        modifiedAt: other.updatedAt
     };
 
     return dto;

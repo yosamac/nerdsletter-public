@@ -30,7 +30,7 @@ export const CreateSubscriptionSchema = Joi.object({
         .label('email').description('User email'),
     dateOfBirth: Joi.string().required()
         .label('dateOfBirth').description('User date of birth'),
-    flagForConsent: Joi.boolean().required().default(true)
+    flagForConsent: Joi.boolean().required()
         .label('flagForConsent').description('User flag for consent'),
     newsletterId: Joi.string().required().default('default-campaign')
         .label('newsletterId').description('Newsletter ID'),
