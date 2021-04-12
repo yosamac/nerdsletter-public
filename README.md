@@ -101,7 +101,10 @@ npm run build:pro-image
 docker-compose up nerdsletter
 ```
 
-### Docker hub repository
+## CI/CD
+This repo has Continuous Delivery (in process) and Continuous Integration thanks to [github actions](https://github.com/features/actions). Every commit pushed to the `develop` branch start up the jobs.
+
+## Docker hub repository
 [Nerdsletter repository](https://hub.docker.com/repository/docker/yosama/nerdsletter-public)
 
 
